@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace TestCarWash.Models
@@ -18,24 +19,40 @@ namespace TestCarWash.Models
 
         private void FillInitialOperationData(CarWashContext context)
         {
-            context.Operations.Add(new Operation { Name = "Технологическая мойка (без сушки)", Description = "мойка кузова, дисков", Price = 5 });
-            context.Operations.Add(new Operation { Name = "Бесконтактная мойка (без сушки)", Description = "бесконтактная мойка, покрытие воском", Price = 7 });
-            context.Operations.Add(new Operation { Name = "Ручная мойка без сушки", Description = "бесконтактная мойка, ручная мойка, покрытие воском", Price = 10 });
-            context.Operations.Add(new Operation { Name = "Ручная мойка с сушкой", Description = "бесконтактная мойка, ручная мойка с НАНО-шампунем, покрытие воском, сушка и продувка воздухом, мойка/чистка ковриков 4шт.", Price = 17 });
-            context.Operations.Add(new Operation { Name = "Комплекс 1", Description = "уборка салона и багажника пылесосом, мойка / чистка ковриков 4 шт., протирка пыли", Price = 15 });
-            context.Operations.Add(new Operation { Name = "Комплекс 2", Description = "уборка салона и багажника пылесосом , мойка / чистка ковриков, мойка стекол и зеркал салона, обработка панелей салона спецсредствами", Price = 25 });
-            context.Operations.Add(new Operation { Name = "Мойка двигателя", Description = "", Price = 30 });
-            context.Operations.Add(new Operation { Name = "Полировка фар", Description = "", Price = 40 });
-            context.Operations.Add(new Operation { Name = "Чернение резины", Description = "", Price = 4 });
+            var services = new List<Service>
+            {
+                new Service { Name = "Технологическая мойка (без сушки)", Description = "мойка кузова, дисков", Price = 5 },
+                new Service { Name = "Бесконтактная мойка (без сушки)", Description = "бесконтактная мойка, покрытие воском", Price = 7 },
+                new Service { Name = "Ручная мойка без сушки", Description = "бесконтактная мойка, ручная мойка, покрытие воском", Price = 10 },
+                new Service { Name = "Ручная мойка с сушкой", Description = "бесконтактная мойка, ручная мойка с НАНО-шампунем, покрытие воском, сушка и продувка воздухом, мойка/чистка ковриков 4шт.", Price = 17 },
+                new Service { Name = "Комплекс 1", Description = "уборка салона и багажника пылесосом, мойка / чистка ковриков 4 шт., протирка пыли", Price = 15 },
+                new Service { Name = "Комплекс 2", Description = "уборка салона и багажника пылесосом , мойка / чистка ковриков, мойка стекол и зеркал салона, обработка панелей салона спецсредствами", Price = 25 },
+                new Service { Name = "Мойка двигателя", Description = "", Price = 30 },
+                new Service { Name = "Полировка фар", Description = "", Price = 40 },
+                new Service { Name = "Чернение резины", Description = "", Price = 4 },
+            };
+            services.ForEach(service => context.Services.Add(service));
+            context.SaveChanges();
         }
 
         private void FillTestData(CarWashContext context)
         {
-            context.Clients.Add(new Client { Person = "Иванов Иван", TelephoneNumber = "+375 29 123-66-99" });
-            context.Clients.Add(new Client { Person = "Сидоров Пётр", TelephoneNumber = "+375 29 222-12-45" });
+            var clients = new List<Client>
+            {
+                new Client { Person = "Иванов Иван", PhoneNumber = "+375 29 123-66-99" },
+                new Client { Person = "Сидоров Пётр", PhoneNumber = "+375 29 222-12-45" },
+            };
+            clients.ForEach(client => context.Clients.Add(client));
+            context.SaveChanges();
 
-            //context.ServiceProvisions.Add(new ServiceProvision { ServiceDate = DateTime.Today, ClientId = 1, OperationId = 1, PaidMinutes = 8 });
-            //context.ServiceProvisions.Add(new ServiceProvision { ServiceDate = DateTime.Today, ClientId = 1, OperationId = 8, PaidMinutes = 3 });
+            var providedServices = new List<ProvidedService>
+            {
+                new ProvidedService { ServiceDate = DateTime.Today, ClientId = 1, ServiceId = 1, PaidMinutes = 8 },
+                new ProvidedService { ServiceDate = DateTime.Today, ClientId = 1, ServiceId = 7, PaidMinutes = 15 },
+                new ProvidedService { ServiceDate = DateTime.Today, ClientId = 2, ServiceId = 2, PaidMinutes = 5 },
+            };
+            providedServices.ForEach(providedService => context.ProvidedServices.Add(providedService));
+            context.SaveChanges();
         }
     }
 }
