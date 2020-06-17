@@ -1,4 +1,6 @@
-﻿namespace TestCarWash.Models
+﻿using System.Collections.Generic;
+
+namespace TestCarWash.Models
 {
     /// <summary>
     /// Client entity model.
@@ -16,8 +18,13 @@
         public string Person { get; set; }
         
         /// <summary>
-        /// Telephone number of client.
+        /// Phone number of client.
         /// </summary>
-        public string TelephoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// List of provided services for this client.
+        /// </summary>
+        public virtual ICollection<ProvidedService> ProvidedServices { get; set; }
     }
 }

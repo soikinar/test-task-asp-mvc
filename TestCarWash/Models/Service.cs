@@ -1,27 +1,27 @@
 ﻿namespace TestCarWash.Models
 {
     /// <summary>
-    /// Operation entity model.
+    /// Service entity model.
     /// </summary>
-    public class Operation
+    public class Service
     {
         /// <summary>
-        /// Identifier of operation.
+        /// Identifier of service.
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
-        /// Name of operation.
+        /// Name of service.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Description of operation.
+        /// Description of service.
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
-        /// Price of operation.
+        /// Price of service.
         /// </summary>
         public decimal Price { get; set; }
     }

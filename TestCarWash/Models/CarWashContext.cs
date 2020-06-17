@@ -13,13 +13,13 @@ namespace TestCarWash.Models
         public DbSet<Client> Clients { get; set; }
 
         /// <summary>
-        /// Database table of operations.
+        /// Database table of services.
         /// </summary>
-        public DbSet<Operation> Operations { get; set; }
+        public DbSet<Service> Services { get; set; }
 
         /// <summary>
         /// Database table of services provided.
         /// </summary>
-        public DbSet<ServiceProvision> ServiceProvisions { get; set; }
+        public DbSet<ProvidedService> ProvidedServices { get; set; }
     }
 }
