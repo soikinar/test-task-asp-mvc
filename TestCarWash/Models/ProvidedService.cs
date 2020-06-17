@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestCarWash.Models
 {
@@ -15,12 +16,15 @@ namespace TestCarWash.Models
         /// <summary>
         /// Date of provided service.
         /// </summary>
+        [Display(Name = "Дата оказания услуги")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime ServiceDate { get; set; }
 
         /// <summary>
-        /// Count of minutes paid.
+        /// Number of minutes.
         /// </summary>
-        public int PaidMinutes { get; set; }
+        [Display(Name = "Количество минут")]
+        public int NumberOfMinutes { get; set; }
 
         /// <summary>
         /// Identifier of client.
@@ -41,5 +45,11 @@ namespace TestCarWash.Models
         /// Service entity.
         /// </summary>
         public virtual Service Service { get; set; }
+
+        /// <summary>
+        /// Total price of provided service (number of minutes * price per minute).
+        /// </summary>
+        [Display(Name = "Итоговая цена за услугу")]
+        public virtual decimal TotalPrice => NumberOfMinutes * Service.PricePerMinute;
     }
 }

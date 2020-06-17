@@ -1,0 +1,40 @@
+﻿@using TestCarWash.Content.Common
+@model IEnumerable<TestCarWash.Models.Client>
+
+@{
+    ViewBag.Title = PageConstants.ClientIndexPageTitleString;
+}
+
+<h2>@PageConstants.ClientIndexPageTitleString</h2>
+
+<p>
+    @Html.ActionLink("Добавить клиента", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var client in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => client.Person)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => client.PhoneNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Подробнее", "Details", new { id = client.Id }) |
+            @Html.ActionLink("Редактировать", "Edit", new { id = client.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = client.Id })
+        </td>
+    </tr>
+}
+
+</table>

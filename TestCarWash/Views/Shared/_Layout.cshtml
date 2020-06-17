@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - @PageConstants.OrganizationName</title>
+    <title>@ViewBag.Title - @PageConstants.OrganizationNameString</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -26,7 +26,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - @PageConstants.OrganizationName</p>
+            <p>&copy; @DateTime.Now.Year - @PageConstants.OrganizationNameString</p>
         </footer>
     </div>
 

@@ -1,4 +1,6 @@
-﻿namespace TestCarWash.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TestCarWash.Models
 {
     /// <summary>
     /// Service entity model.
@@ -13,16 +15,19 @@
         /// <summary>
         /// Name of service.
         /// </summary>
+        [Display(Name = "Наименование")]
         public string Name { get; set; }
 
         /// <summary>
         /// Description of service.
         /// </summary>
+        [Display(Name = "Описание")]
         public string Description { get; set; }
 
         /// <summary>
-        /// Price of service.
+        /// Price per minute of service.
         /// </summary>
-        public decimal Price { get; set; }
+        [Display(Name = "Цена за минуту")]
+        public decimal PricePerMinute { get; set; }
     }
 }
