@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestCarWash.Content.Common;
 
 namespace TestCarWash.Models
 {
@@ -27,7 +28,7 @@ namespace TestCarWash.Models
         /// <summary>
         /// Price per minute of service.
         /// </summary>
-        [Display(Name = "Цена за минуту")]
+        [Display(Name = "Цена за минуту"), DisplayFormat(DataFormatString = PageConstants.MoneyDataFormat)]
         public decimal PricePerMinute { get; set; }
     }
 }

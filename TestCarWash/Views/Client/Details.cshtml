@@ -24,7 +24,7 @@
         <dd>
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.ProvidedServices)
         </dt>
@@ -32,8 +32,11 @@
             <table class="table">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.ProvidedServices.First().ServiceDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProvidedServices.First().Service.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProvidedServices.First().Service.Description)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProvidedServices.First().Service.PricePerMinute)</th>
                     <th>@Html.DisplayNameFor(model => model.ProvidedServices.First().NumberOfMinutes)</th>
-                    
+                    <th>@Html.DisplayNameFor(model => model.ProvidedServices.First().TotalPrice)</th>
                 </tr>
                 @foreach (var providedService in Model.ProvidedServices)
                 {
@@ -42,9 +45,20 @@
                             @Html.DisplayFor(modelItem => providedService.ServiceDate)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => providedService.Service.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => providedService.Service.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => providedService.Service.PricePerMinute)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => providedService.NumberOfMinutes)
                         </td>
-                        
+                        <td>
+                            @Html.DisplayFor(modelItem => providedService.TotalPrice)
+                        </td>
                     </tr>
                 }
             </table>

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -36,20 +37,25 @@ namespace TestCarWash.Controllers
             return View();
         }
 
-        // POST: Client/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Person,PhoneNumber")] Client client)
+        public ActionResult Create([Bind(Include = "Person, PhoneNumber")]
+            Client client)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Clients.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Clients.Add(client);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException)
+            {
+                //Log the error
+                ModelState.AddModelError("", "Невозможно сохранить. Попытайтесь позже, или обратитесь к администратору.");
+            }
             return View(client);
         }
 

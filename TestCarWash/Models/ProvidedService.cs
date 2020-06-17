@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using TestCarWash.Content.Common;
 
 namespace TestCarWash.Models
 {
@@ -16,8 +17,7 @@ namespace TestCarWash.Models
         /// <summary>
         /// Date of provided service.
         /// </summary>
-        [Display(Name = "Дата оказания услуги")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Display(Name = "Дата оказания услуги"), DisplayFormat(DataFormatString = PageConstants.DateDataFormat)]
         public DateTime ServiceDate { get; set; }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace TestCarWash.Models
         /// <summary>
         /// Total price of provided service (number of minutes * price per minute).
         /// </summary>
-        [Display(Name = "Итоговая цена за услугу")]
+        [Display(Name = "Итоговая цена за услугу"), DisplayFormat(DataFormatString = PageConstants.MoneyDataFormat)]
         public virtual decimal TotalPrice => NumberOfMinutes * Service.PricePerMinute;
     }
 }
