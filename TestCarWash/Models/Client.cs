@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TestCarWash.Content.Common;
 
 namespace TestCarWash.Models
 {
@@ -16,19 +17,19 @@ namespace TestCarWash.Models
         /// <summary>
         /// Client's name and surname.
         /// </summary>
-        [Display(Name = "Фамилия Имя")]
+        [Display(Name = PageStrings.ClientPersonDisplayName)]
         public string Person { get; set; }
         
         /// <summary>
         /// Phone number of client.
         /// </summary>
-        [Display(Name = "Контактный номер")]
+        [Display(Name = PageStrings.ClientPhoneNumberDisplayName)]
         public string PhoneNumber { get; set; }
 
         /// <summary>
         /// List of provided services for this client.
         /// </summary>
-        [Display(Name = "Оказанные услуги")]
+        [Display(Name = PageStrings.ClientProvidedServicesDisplayName)]
         public virtual ICollection<ProvidedService> ProvidedServices { get; set; }
     }
 }

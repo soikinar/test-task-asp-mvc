@@ -17,13 +17,14 @@ namespace TestCarWash.Models
         /// <summary>
         /// Date of provided service.
         /// </summary>
-        [Display(Name = "Дата оказания услуги"), DisplayFormat(DataFormatString = PageConstants.DateDataFormat)]
+        [Display(Name = PageStrings.ProvidedServiceDateDisplayName)]
+        [DisplayFormat(DataFormatString = PageStrings.DateDataFormat)]
         public DateTime ServiceDate { get; set; }
 
         /// <summary>
         /// Number of minutes.
         /// </summary>
-        [Display(Name = "Количество минут")]
+        [Display(Name = PageStrings.ProvidedServiceNumberOfMinutesDisplayName)]
         public int NumberOfMinutes { get; set; }
 
         /// <summary>
@@ -49,7 +50,8 @@ namespace TestCarWash.Models
         /// <summary>
         /// Total price of provided service (number of minutes * price per minute).
         /// </summary>
-        [Display(Name = "Итоговая цена за услугу"), DisplayFormat(DataFormatString = PageConstants.MoneyDataFormat)]
+        [Display(Name = PageStrings.ProvidedServiceTotalPriceDisplayName)]
+        [DisplayFormat(DataFormatString = PageStrings.MoneyDataFormat)]
         public virtual decimal TotalPrice => NumberOfMinutes * Service.PricePerMinute;
     }
 }
