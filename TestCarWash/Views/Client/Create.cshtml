@@ -2,18 +2,16 @@
 @model TestCarWash.Models.Client
 
 @{
-    ViewBag.Title = PageConstants.ClientCreatePageTitleString;
+    ViewBag.Title = PageStrings.ClientCreatePageTitleText;
 }
 
-<h2>@PageConstants.ClientCreatePageTitleString</h2>
-
+<h2>@PageStrings.ClientCreatePageTitleText</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Client</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -34,14 +32,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value=@PageStrings.AddButtonText class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(PageStrings.BackToClientListButtonText, "Index")
 </div>
 
 @section Scripts {

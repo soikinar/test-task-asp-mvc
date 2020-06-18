@@ -2,10 +2,10 @@
 @model TestCarWash.Models.Client
 
 @{
-    ViewBag.Title = PageConstants.ClientDetailsPageTitleString;
+    ViewBag.Title = PageStrings.ClientDetailsPageTitleText;
 }
 
-<h2>@PageConstants.ClientDetailsPageTitleString</h2>
+<h2>@PageStrings.ClientDetailsPageTitleText</h2>
 
 <div>
     <h4>Клиент</h4>
@@ -67,5 +67,5 @@
 </div>
 <p>
     @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Вернуться к списку клиентов", "Index")
+    @Html.ActionLink(PageStrings.BackToClientListButtonText, "Index")
 </p>

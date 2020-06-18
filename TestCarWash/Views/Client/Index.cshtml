@@ -2,14 +2,15 @@
 @model IEnumerable<TestCarWash.Models.Client>
 
 @{
-    ViewBag.Title = PageConstants.ClientIndexPageTitleString;
+    ViewBag.Title = PageStrings.ClientIndexPageTitleText;
 }
 
-<h2>@PageConstants.ClientIndexPageTitleString</h2>
+<h2>@PageStrings.ClientIndexPageTitleText</h2>
 
 <p>
     @Html.ActionLink("Добавить клиента", "Create")
 </p>
+<br/>
 <table class="table">
     <tr>
         <th>
