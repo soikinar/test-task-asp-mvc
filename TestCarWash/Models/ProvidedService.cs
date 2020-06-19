@@ -18,7 +18,7 @@ namespace TestCarWash.Models
         /// Date of provided service.
         /// </summary>
         [Display(Name = PageStrings.ProvidedServiceDateDisplayName)]
-        [DisplayFormat(DataFormatString = PageStrings.DateDataFormat)]
+        [DisplayFormat(DataFormatString = PageStrings.DateDataFormat, ApplyFormatInEditMode = true)]
         public DateTime ServiceDate { get; set; }
 
         /// <summary>
@@ -33,25 +33,25 @@ namespace TestCarWash.Models
         public int ClientId { get; set; }
 
         /// <summary>
+        /// Client entity.
+        /// </summary>
+        public Client Client { get; set; }
+
+        /// <summary>
         /// Identifier of selected service.
         /// </summary>
         public int ServiceId { get; set; }
 
         /// <summary>
-        /// Client entity.
-        /// </summary>
-        public virtual Client Client { get; set; }
-
-        /// <summary>
         /// Service entity.
         /// </summary>
-        public virtual Service Service { get; set; }
+        public Service Service { get; set; }
 
         /// <summary>
         /// Total price of provided service (number of minutes * price per minute).
         /// </summary>
         [Display(Name = PageStrings.ProvidedServiceTotalPriceDisplayName)]
-        [DisplayFormat(DataFormatString = PageStrings.MoneyDataFormat)]
+        [DisplayFormat(DataFormatString = PageStrings.MoneyDataFormat, ApplyFormatInEditMode = true)]
         public virtual decimal TotalPrice => NumberOfMinutes * Service.PricePerMinute;
     }
 }

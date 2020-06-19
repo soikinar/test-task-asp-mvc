@@ -19,7 +19,7 @@ namespace TestCarWash.Models
         /// </summary>
         [Display(Name = PageStrings.ClientPersonDisplayName)]
         public string Person { get; set; }
-        
+
         /// <summary>
         /// Phone number of client.
         /// </summary>
@@ -30,6 +30,11 @@ namespace TestCarWash.Models
         /// List of provided services for this client.
         /// </summary>
         [Display(Name = PageStrings.ClientProvidedServicesDisplayName)]
-        public virtual ICollection<ProvidedService> ProvidedServices { get; set; }
+        public ICollection<ProvidedService> ProvidedServices { get; set; }
+
+        public Client()
+        {
+            ProvidedServices = new List<ProvidedService>();
+        }
     }
 }
