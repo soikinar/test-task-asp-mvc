@@ -24,7 +24,9 @@ namespace TestCarWash.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var client = db.Clients.Find(id);
+            var client = db.Clients
+                .Include(c => c.ProvidedServices.Select(s => s.Service))
+                .FirstOrDefault(c => c.Id == id);
             if (client == null)
             {
                 return HttpNotFound();

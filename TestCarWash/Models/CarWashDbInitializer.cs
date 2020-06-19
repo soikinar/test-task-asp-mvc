@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace TestCarWash.Models
 {
@@ -46,14 +47,15 @@ namespace TestCarWash.Models
             context.SaveChanges();
 
             var yesterday = DateTime.Today.AddDays(-1);
-            //var providedServices = new List<ProvidedService>
-            //{
-            //    new ProvidedService { ServiceDate = yesterday, ClientId = 1, ServiceId = 1, NumberOfMinutes = 10 },
-            //    new ProvidedService { ServiceDate = yesterday, ClientId = 1, ServiceId = 5, NumberOfMinutes = 30 },
-            //    new ProvidedService { ServiceDate = yesterday, ClientId = 2, ServiceId = 6, NumberOfMinutes = 40 },
-            //    new ProvidedService { ServiceDate = yesterday, ClientId = 2, ServiceId = 8, NumberOfMinutes = 1 },
-            //};
-            //providedServices.ForEach(providedService => context.ProvidedServices.Add(providedService));
+            var services = context.Services.ToList();
+            var providedServices = new List<ProvidedService>
+            {
+                new ProvidedService { ServiceDate = yesterday, Client = clients[0], Service = services[0], NumberOfMinutes = 10 },
+                new ProvidedService { ServiceDate = yesterday, Client = clients[0], Service = services[4], NumberOfMinutes = 30 },
+                new ProvidedService { ServiceDate = yesterday, Client = clients[1], Service = services[5], NumberOfMinutes = 40 },
+                new ProvidedService { ServiceDate = yesterday, Client = clients[1], Service = services[7], NumberOfMinutes = 1 },
+            };
+            providedServices.ForEach(providedService => context.ProvidedServices.Add(providedService));
             context.SaveChanges();
         }
     }

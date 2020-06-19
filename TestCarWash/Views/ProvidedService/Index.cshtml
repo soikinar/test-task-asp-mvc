@@ -1,0 +1,92 @@
+﻿@model TestCarWash.ViewModels.ProvidedServicesIndexData
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить клиента", "Create", "Client")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Clients.First().Person)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clients.First().PhoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Clients)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { clientId = item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+    @if (Model.ProvidedServices != null)
+    {
+        <h4>Оказанные клиенту услуги</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProvidedServices.First().ServiceDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProvidedServices.First().Service.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProvidedServices.First().Service.PricePerMinute)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProvidedServices.First().NumberOfMinutes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProvidedServices.First().TotalPrice)
+                </th>
+            </tr>
+
+            @foreach (var item in Model.ProvidedServices)
+            {
+                var selectedRow = "";
+                if (item.ClientId == ViewBag.ClientId)
+                {
+                    selectedRow = "success";
+                }
+                <tr class="@selectedRow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.PricePerMinute)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfMinutes)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </th>
+                </tr>
+            }
+        </table>
+    }
+
+</table>

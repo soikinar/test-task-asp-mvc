@@ -33,19 +33,19 @@ namespace TestCarWash.Models
         public int ClientId { get; set; }
 
         /// <summary>
-        /// Client entity.
-        /// </summary>
-        public Client Client { get; set; }
-
-        /// <summary>
         /// Identifier of selected service.
         /// </summary>
         public int ServiceId { get; set; }
 
         /// <summary>
+        /// Client entity.
+        /// </summary>
+        public virtual Client Client { get; set; }
+
+        /// <summary>
         /// Service entity.
         /// </summary>
-        public Service Service { get; set; }
+        public virtual Service Service { get; set; }
 
         /// <summary>
         /// Total price of provided service (number of minutes * price per minute).
