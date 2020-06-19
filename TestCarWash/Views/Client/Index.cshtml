@@ -8,7 +8,7 @@
 <h2>@PageStrings.ClientIndexPageTitleText</h2>
 
 <p>
-    @Html.ActionLink("Добавить клиента", "Create")
+    @Html.ActionLink(PageStrings.CreateButtonText, "Create")
 </p>
 <br/>
 <table class="table">
@@ -31,9 +31,9 @@
             @Html.DisplayFor(modelItem => client.PhoneNumber)
         </td>
         <td>
-            @Html.ActionLink("Подробнее об оказанных услугах", "Details", new { id = client.Id }) |
-            @Html.ActionLink("Редактировать", "Edit", new { id = client.Id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id = client.Id })
+            @Html.ActionLink(PageStrings.ClientDetailsButtonText, "Details", new { id = client.Id }) |
+            @Html.ActionLink(PageStrings.EditButtonText, "Edit", new { id = client.Id }) |
+            @Html.ActionLink(PageStrings.DeleteButtonText, "Delete", new { id = client.Id })
         </td>
     </tr>
 }

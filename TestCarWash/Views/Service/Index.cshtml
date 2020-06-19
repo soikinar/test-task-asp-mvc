@@ -1,13 +1,14 @@
-﻿@model IEnumerable<TestCarWash.Models.Service>
+﻿@using TestCarWash.Content.Common
+@model IEnumerable<TestCarWash.Models.Service>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = PageStrings.ServiceIndexPageTitleText;
 }
 
-<h2>Index</h2>
+<h2>@PageStrings.ServiceIndexPageTitleText</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(PageStrings.CreateButtonText, "Create")
 </p>
 <table class="table">
     <tr>
@@ -35,9 +36,8 @@
             @Html.DisplayFor(modelItem => item.PricePerMinute)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink(PageStrings.EditButtonText, "Edit", new { id=item.Id }) |
+            @Html.ActionLink(PageStrings.DeleteButtonText, "Delete", new { id=item.Id })
         </td>
     </tr>
 }

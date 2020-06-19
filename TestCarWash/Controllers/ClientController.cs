@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using TestCarWash.Content.Common;
 using TestCarWash.Models;
 
 namespace TestCarWash.Controllers
@@ -52,7 +53,7 @@ namespace TestCarWash.Controllers
             catch (DataException)
             {
                 //Log the error
-                ModelState.AddModelError("", "Невозможно сохранить. Попытайтесь позже или обратитесь к администратору.");
+                ModelState.AddModelError("", PageStrings.CreateErrorMessageText);
             }
             return View(client);
         }
@@ -87,12 +88,12 @@ namespace TestCarWash.Controllers
             catch (DataException)
             {
                 //Log the error
-                ModelState.AddModelError("", "Невозможно сохранить. Попытайтесь позже или обратитесь к администратору.");
+                ModelState.AddModelError("", PageStrings.EditErrorMessageText);
             }
             return View(client);
         }
 
-        public ActionResult Delete(int? id, bool? saveChangesError=false)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
@@ -100,7 +101,7 @@ namespace TestCarWash.Controllers
             }
             if (saveChangesError.GetValueOrDefault())
             {
-                ViewBag.ErrorMessage = "Не удалось удалить запись. Попытайтесь позже или обратитесь к администратору.";
+                ViewBag.ErrorMessage = PageStrings.DeleteErrorMessageText;
             }
             var client = db.Clients.Find(id);
             if (client == null)
