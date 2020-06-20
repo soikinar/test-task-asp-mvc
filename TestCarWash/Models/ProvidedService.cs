@@ -18,7 +18,8 @@ namespace TestCarWash.Models
         /// Date of provided service.
         /// </summary>
         [Display(Name = PageStrings.ProvidedServiceDateDisplayName)]
-        [DisplayFormat(DataFormatString = PageStrings.DateDataFormat, ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date, ErrorMessage = "Неверный формат даты")]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ServiceDate { get; set; }
 
         /// <summary>

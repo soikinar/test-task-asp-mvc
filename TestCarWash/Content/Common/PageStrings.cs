@@ -20,12 +20,13 @@
         public const string ServiceDeletePageTitleText = "Удаление услуги";
 
         // Texts of Buttons
+        public const string CreateClientButtonText = "Добавить клиента";
         public const string BackToClientListButtonText = "Вернуться к списку клиентов";
         public const string ClientDetailsButtonText = "Подробнее об оказанных услугах";
 
         public const string BackToServiceListButtonText = "Вернуться к списку услуг";
-
-        public const string CreateButtonText = "Добавить";
+        public const string CreateServiceButtonText = "Добавить услугу";
+        
         public const string EditButtonText = "Редактировать";
         public const string SaveButtonText = "Сохранить";
         public const string DeleteButtonText = "Удалить";

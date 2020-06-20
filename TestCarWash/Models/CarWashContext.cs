@@ -41,7 +41,7 @@ namespace TestCarWash.Models
                 .HasMany(client => client.ProvidedServices)
                 .WithRequired(providedService => providedService.Client)
                 .HasForeignKey(providedService => providedService.ClientId);
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -11,15 +11,6 @@ namespace TestCarWash.Controllers
     {
         private CarWashContext db = new CarWashContext();
 
-        //public ActionResult Index()
-        //{
-        //    var providedServices = db.ProvidedServices
-        //        .Include(p => p.Client)
-        //        .Include(p => p.Service)
-        //        .ToList();
-        //    return View(providedServices);
-        //}
-
         public ActionResult Index(int? clientId)
         {
             var viewModel = new ProvidedServicesIndexData
