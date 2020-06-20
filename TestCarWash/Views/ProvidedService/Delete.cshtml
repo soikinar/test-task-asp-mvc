@@ -1,14 +1,14 @@
-﻿@model TestCarWash.Models.ProvidedService
+﻿@using TestCarWash.Content.Common
+@model TestCarWash.Models.ProvidedService
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = PageStrings.ProvidedServiceDeletePageTitleText;
 }
 
-<h2>Delete</h2>
+<h2>@PageStrings.ProvidedServiceDeletePageTitleText</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Вы уверены, что хотите удалить информацию об оказанной услуге?</h3>
 <div>
-    <h4>ProvidedService</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -49,8 +49,11 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value=@PageStrings.DeleteButtonText class="btn btn-default" />
+        </div>
+        <br/>
+        <div>
+            @Html.ActionLink(PageStrings.BackToListButtonText, "Index", new { clientId = Model.ClientId })
         </div>
     }
 </div>

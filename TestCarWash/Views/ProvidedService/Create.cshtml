@@ -32,16 +32,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ClientId, "ClientId", new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="ClientId">Клиент</label>
             <div class="col-md-10">
                 @Html.DropDownList("ClientId", null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
-                @Html.ActionLink(PageStrings.CreateClientButtonText, "Create", "Client")
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ServiceId, "ServiceId", new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="ServiceId">Услуга</label>
             <div class="col-md-10">
                 @Html.DropDownList("ServiceId", null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ServiceId, "", new { @class = "text-danger" })

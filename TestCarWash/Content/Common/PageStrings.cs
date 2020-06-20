@@ -8,7 +8,6 @@
         public const string OrganizationNameText = "Автомобильная мойка \"Рыбёшка\"";
 
         // Titles of Pages
-        public const string ClientDetailsPageTitleText = "Оказанные услуги";
         public const string ClientIndexPageTitleText = "Клиенты";
         public const string ClientCreatePageTitleText = "Добавление клиента";
         public const string ClientEditPageTitleText = "Редактирование клиента";
@@ -20,11 +19,15 @@
         public const string ServiceDeletePageTitleText = "Удаление услуги";
 
         public const string ProvidedServicePageTitleText = "Оказание услуги";
+        public const string ProvidedServiceEditPageTitleText = "Редактирование информации об оказанной услуге";
+        public const string ProvidedServiceDeletePageTitleText = "Удаление информации об оказанной услуге";
 
         // Texts of Buttons
         public const string BackToListButtonText = "Вернуться к списку";
 
         public const string CreateClientButtonText = "Добавить клиента";
+        public const string EditClientButtonText = "Редактировать клиента";
+        public const string DeleteClientButtonText = "Удалить клиента";
         public const string ClientDetailsButtonText = "Подробнее об оказанных услугах";
 
         public const string CreateServiceButtonText = "Добавить услугу";
@@ -37,7 +40,6 @@
         public const string DeleteButtonText = "Удалить";
 
         // Data formats
-        public const string DateDataFormat = "{0:dd/MM/yyyy}";
         public const string MoneyDataFormat = "{0:#0.00} бел.руб.";
 
         // Display Names of model properties

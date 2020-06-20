@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -29,9 +30,16 @@ namespace TestCarWash.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int? clientId)
         {
-            PopulateClientsDropDownList();
+            if (clientId != null)
+            {
+                PopulateClientsDropDownList(clientId.Value);
+            }
+            else
+            {
+                PopulateClientsDropDownList();
+            }
             PopulateServicesDropDownList();
             return View();
         }
@@ -59,49 +67,56 @@ namespace TestCarWash.Controllers
             return View(providedService);
         }
 
-        // GET: ProvidedService/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProvidedService providedService = db.ProvidedServices.Find(id);
+            var providedService = db.ProvidedServices.Find(id);
             if (providedService == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Person", providedService.ClientId);
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", providedService.ServiceId);
+            PopulateClientsDropDownList(providedService.ClientId);
+            PopulateServicesDropDownList(providedService.ServiceId);
             return View(providedService);
         }
 
-        // POST: ProvidedService/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ServiceDate,NumberOfMinutes,ClientId,ServiceId")] ProvidedService providedService)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(providedService).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(providedService).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { clientId = providedService.ClientId });
+                }
             }
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Person", providedService.ClientId);
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", providedService.ServiceId);
+            catch (DataException)
+            {
+                //Log the error
+                ModelState.AddModelError("", PageStrings.EditErrorMessageText);
+            }
+            PopulateClientsDropDownList(providedService.ClientId);
+            PopulateServicesDropDownList(providedService.ServiceId);
             return View(providedService);
         }
 
-        // GET: ProvidedService/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = null)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProvidedService providedService = db.ProvidedServices.Find(id);
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = PageStrings.DeleteErrorMessageText;
+            }
+            var providedService = db.ProvidedServices.Find(id);
             if (providedService == null)
             {
                 return HttpNotFound();
@@ -109,15 +124,24 @@ namespace TestCarWash.Controllers
             return View(providedService);
         }
 
-        // POST: ProvidedService/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            ProvidedService providedService = db.ProvidedServices.Find(id);
-            db.ProvidedServices.Remove(providedService);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            int clientId;
+            try
+            {
+                var providedServiceToDelete = db.ProvidedServices.Find(id);
+                clientId = providedServiceToDelete.ClientId;
+                db.Entry(providedServiceToDelete).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+            catch (DataException)
+            {
+                //Log the error
+                return RedirectToAction("Delete", new { Id = id, saveChangesError = true });
+            }
+            return RedirectToAction("Index", new { clientId = clientId });
         }
 
         protected override void Dispose(bool disposing)

@@ -35,6 +35,6 @@
     }
     <br/>
     <div>
-        @Html.ActionLink(PageStrings.BackToListButtonText, "Index")
+        @Html.ActionLink(PageStrings.BackToListButtonText, "Index", "ProvidedService", new { clientId = Model.Id}, null)
     </div>
 </div>

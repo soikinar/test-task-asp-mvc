@@ -12,28 +12,6 @@ namespace TestCarWash.Controllers
     {
         private CarWashContext db = new CarWashContext();
 
-        public ActionResult Index()
-        {
-            var clients = db.Clients.ToList();
-            return View(clients);
-        }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var client = db.Clients
-                .Include(c => c.ProvidedServices.Select(s => s.Service))
-                .FirstOrDefault(c => c.Id == id);
-            if (client == null)
-            {
-                return HttpNotFound();
-            }
-            return View(client);
-        }
-
         public ActionResult Create()
         {
             return View();
@@ -41,7 +19,7 @@ namespace TestCarWash.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Person, PhoneNumber")] Client client)
+        public ActionResult Create([Bind(Include = "Person,PhoneNumber")] Client client)
         {
             try
             {
@@ -49,7 +27,7 @@ namespace TestCarWash.Controllers
                 {
                     db.Clients.Add(client);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "ProvidedService", new { clientId = client.Id });
                 }
             }
             catch (DataException)
@@ -76,7 +54,7 @@ namespace TestCarWash.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id, Person, PhoneNumber")] Client client)
+        public ActionResult Edit([Bind(Include = "Id,Person,PhoneNumber")] Client client)
         {
             try
             {
@@ -84,7 +62,7 @@ namespace TestCarWash.Controllers
                 {
                     db.Entry(client).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "ProvidedService", new { clientId = client.Id });
                 }
             }
             catch (DataException)
@@ -126,9 +104,9 @@ namespace TestCarWash.Controllers
             catch (DataException)
             {
                 //Log the error
-                return RedirectToAction("Delete", new {Id = id, saveChangesError = true});
+                return RedirectToAction("Delete", new { Id = id, saveChangesError = true });
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "ProvidedService");
         }
 
         protected override void Dispose(bool disposing)

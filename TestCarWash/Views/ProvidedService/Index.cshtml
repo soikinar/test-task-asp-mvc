@@ -8,7 +8,7 @@
 <h2>@PageStrings.ClientIndexPageTitleText</h2>
 
 <p>
-    @Html.ActionLink(PageStrings.CreateProvidedServiceButtonText, "Create")
+    @Html.ActionLink(PageStrings.CreateClientButtonText, "Create", "Client")
 </p>
 <table class="table">
     <tr>
@@ -21,19 +21,19 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Clients)
+    @foreach (var client in Model.Clients)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Person)
+                @Html.DisplayFor(modelItem => client.Person)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                @Html.DisplayFor(modelItem => client.PhoneNumber)
             </td>
             <td>
-                @Html.ActionLink(PageStrings.ClientDetailsButtonText, "Index", new { clientId = item.Id }) |
-                @Html.ActionLink(PageStrings.EditButtonText, "Edit", new { id = item.Id }) |
-                @Html.ActionLink(PageStrings.DeleteButtonText, "Delete", new { id = item.Id })
+                @Html.ActionLink(PageStrings.ClientDetailsButtonText, "Index", new { clientId = client.Id }) |
+                @Html.ActionLink(PageStrings.EditClientButtonText, "Edit", "Client", new { id = client.Id }, null) |
+                @Html.ActionLink(PageStrings.DeleteClientButtonText, "Delete", "Client", new { id = client.Id }, null)
             </td>
         </tr>
     }
@@ -41,6 +41,9 @@
 @if (Model.ProvidedServices != null)
 {
     <h3>Оказанные клиенту услуги</h3>
+    <p>
+        @Html.ActionLink(PageStrings.CreateProvidedServiceButtonText, "Create", new { clientId = (int)ViewBag.ClientId })
+    </p>
     <table class="table">
         <tr>
             <th>
@@ -61,6 +64,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ProvidedServices.First().TotalPrice)
             </th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model.ProvidedServices)
@@ -88,6 +92,10 @@
                 </td>
                 <th>
                     @Html.DisplayFor(modelItem => item.TotalPrice)
+                </th>
+                <th>
+                    @Html.ActionLink(PageStrings.EditButtonText, "Edit", new { id = item.Id }) |
+                    @Html.ActionLink(PageStrings.DeleteButtonText, "Delete", new { id = item.Id })
                 </th>
             </tr>
         }
