@@ -187,7 +187,6 @@
     <Content Include="Views\Service\Index.cshtml" />
     <Content Include="Views\ProvidedService\Create.cshtml" />
     <Content Include="Views\ProvidedService\Delete.cshtml" />
-    <Content Include="Views\ProvidedService\Details.cshtml" />
     <Content Include="Views\ProvidedService\Edit.cshtml" />
     <Content Include="Views\ProvidedService\Index.cshtml" />
   </ItemGroup>

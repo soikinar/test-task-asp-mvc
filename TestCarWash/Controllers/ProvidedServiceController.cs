@@ -1,7 +1,9 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using TestCarWash.Content.Common;
 using TestCarWash.Models;
 using TestCarWash.ViewModels;
 
@@ -27,45 +29,33 @@ namespace TestCarWash.Controllers
             return View(viewModel);
         }
 
-        // GET: ProvidedService/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProvidedService providedService = db.ProvidedServices.Find(id);
-            if (providedService == null)
-            {
-                return HttpNotFound();
-            }
-            return View(providedService);
-        }
-
-        // GET: ProvidedService/Create
         public ActionResult Create()
         {
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Person");
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name");
+            PopulateClientsDropDownList();
+            PopulateServicesDropDownList();
             return View();
         }
 
-        // POST: ProvidedService/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ServiceDate,NumberOfMinutes,ClientId,ServiceId")] ProvidedService providedService)
+        public ActionResult Create([Bind(Include = "ServiceDate,NumberOfMinutes,ClientId,ServiceId")] ProvidedService providedService)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.ProvidedServices.Add(providedService);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.ProvidedServices.Add(providedService);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { clientId = providedService.ClientId });
+                }
             }
-
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Person", providedService.ClientId);
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", providedService.ServiceId);
+            catch (RetryLimitExceededException)
+            {
+                //Log the error
+                ModelState.AddModelError("", PageStrings.CreateErrorMessageText);
+            }
+            PopulateClientsDropDownList(providedService.ClientId);
+            PopulateServicesDropDownList(providedService.ServiceId);
             return View(providedService);
         }
 
@@ -137,6 +127,22 @@ namespace TestCarWash.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void PopulateClientsDropDownList(object selectedClient = null)
+        {
+            var clientsQuery = from client in db.Clients
+                orderby client.Person
+                select client;
+            ViewBag.ClientId = new SelectList(clientsQuery, "Id", "Person", selectedClient);
+        }
+
+        private void PopulateServicesDropDownList(object selectedService = null)
+        {
+            var servicesQuery = from service in db.Services
+                orderby service.Name
+                select service;
+            ViewBag.ServiceId = new SelectList(servicesQuery, "Id", "Name", selectedService);
         }
     }
 }

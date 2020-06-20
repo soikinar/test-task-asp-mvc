@@ -9,7 +9,7 @@
 
         // Titles of Pages
         public const string ClientDetailsPageTitleText = "Оказанные услуги";
-        public const string ClientIndexPageTitleText = "Наши клиенты";
+        public const string ClientIndexPageTitleText = "Клиенты";
         public const string ClientCreatePageTitleText = "Добавление клиента";
         public const string ClientEditPageTitleText = "Редактирование клиента";
         public const string ClientDeletePageTitleText = "Удаление клиента";
@@ -19,14 +19,19 @@
         public const string ServiceEditPageTitleText = "Редактирование услуги";
         public const string ServiceDeletePageTitleText = "Удаление услуги";
 
+        public const string ProvidedServicePageTitleText = "Оказание услуги";
+
         // Texts of Buttons
+        public const string BackToListButtonText = "Вернуться к списку";
+
         public const string CreateClientButtonText = "Добавить клиента";
-        public const string BackToClientListButtonText = "Вернуться к списку клиентов";
         public const string ClientDetailsButtonText = "Подробнее об оказанных услугах";
 
-        public const string BackToServiceListButtonText = "Вернуться к списку услуг";
         public const string CreateServiceButtonText = "Добавить услугу";
-        
+
+        public const string ProvidedServiceListButtonText = "Прейскурант";
+        public const string CreateProvidedServiceButtonText = "Оказать услугу";
+
         public const string EditButtonText = "Редактировать";
         public const string SaveButtonText = "Сохранить";
         public const string DeleteButtonText = "Удалить";

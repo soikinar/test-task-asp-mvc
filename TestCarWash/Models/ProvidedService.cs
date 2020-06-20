@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TestCarWash.Content.Common;
 
 namespace TestCarWash.Models
@@ -29,6 +30,24 @@ namespace TestCarWash.Models
         public int NumberOfMinutes { get; set; }
 
         /// <summary>
+        /// Total price of provided service (number of minutes * price per minute).
+        /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Display(Name = PageStrings.ProvidedServiceTotalPriceDisplayName)]
+        [DisplayFormat(DataFormatString = PageStrings.MoneyDataFormat, ApplyFormatInEditMode = true)]
+        public decimal TotalPrice
+        {
+            get
+            {
+                if (Service == null)
+                {
+                    return 0M;
+                }
+                return NumberOfMinutes * Service.PricePerMinute;
+            }
+        }
+
+        /// <summary>
         /// Identifier of client.
         /// </summary>
         public int ClientId { get; set; }
@@ -47,12 +66,5 @@ namespace TestCarWash.Models
         /// Service entity.
         /// </summary>
         public virtual Service Service { get; set; }
-
-        /// <summary>
-        /// Total price of provided service (number of minutes * price per minute).
-        /// </summary>
-        [Display(Name = PageStrings.ProvidedServiceTotalPriceDisplayName)]
-        [DisplayFormat(DataFormatString = PageStrings.MoneyDataFormat, ApplyFormatInEditMode = true)]
-        public virtual decimal TotalPrice => NumberOfMinutes * Service.PricePerMinute;
     }
 }
