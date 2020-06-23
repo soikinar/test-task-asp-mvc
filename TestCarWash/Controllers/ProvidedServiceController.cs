@@ -146,11 +146,28 @@ namespace TestCarWash.Controllers
             return RedirectToAction("Index", new { clientId = clientId });
         }
 
-        public void PrintReport()
+        public ActionResult CreateAndPrintReportForClient(int? clientId)
         {
-            var reportProvider = new InDesignReportProvider();
-            var reportGenerator = new ReportGenerator(reportProvider);
-            reportGenerator.CreateReport();
+            if (clientId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var client = db.Clients
+                .Include(c => c.ProvidedServices.Select(ps => ps.Service))
+                .SingleOrDefault(c => c.Id == clientId);
+
+            if (client == null)
+            {
+                return HttpNotFound();
+            }
+            if (!client.ProvidedServices.Any())
+            {
+                return new EmptyResult();
+            }
+
+            var pathToCreatedReport = CreateProvidedServicesReport(client);
+            return File(Server.MapPath(pathToCreatedReport), "application/pdf");
         }
 
         protected override void Dispose(bool disposing)
@@ -176,6 +193,14 @@ namespace TestCarWash.Controllers
                 orderby service.Name
                 select service;
             ViewBag.ServiceId = new SelectList(servicesQuery, "Id", "Name", selectedService);
+        }
+
+        private string CreateProvidedServicesReport(Client client)
+        {
+            var reportProvider = new InDesignReportProvider();
+            var reportGenerator = new ProvidedServicesReportGenerator(reportProvider, client);
+
+            return reportGenerator.CreateReportFromTemplate();
         }
     }
 }

@@ -34,7 +34,7 @@
                 @Html.ActionLink(PageStrings.ShowProvidedServiceListButtonText, "Index", new { clientId = client.Id }) |
                 @Html.ActionLink(PageStrings.EditClientButtonText, "Edit", "Client", new { id = client.Id }, null) |
                 @Html.ActionLink(PageStrings.DeleteClientButtonText, "Delete", "Client", new { id = client.Id }, null) |
-                @Html.ActionLink(PageStrings.PrintProvidedServiceButtonText, "PrintReport")
+                @Html.ActionLink(PageStrings.PrintProvidedServiceButtonText, "CreateAndPrintReportForClient", new { clientId = client.Id })
             </td>
         </tr>
     }

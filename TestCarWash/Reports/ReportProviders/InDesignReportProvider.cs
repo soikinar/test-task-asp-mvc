@@ -2,23 +2,30 @@
 
 namespace TestCarWash.Reports.ReportProviders
 {
-    public class InDesignReportProvider
+    /// <summary>
+    /// Adobe InDesign Report Provider.
+    /// </summary>
+    public class InDesignReportProvider : IReportProvider<InDesign.Document>
     {
-        public InDesign.Application CreateInstance()
+        private const InDesign.idSaveOptions QuitSaveOptions = InDesign.idSaveOptions.idNo;
+        private const string InDesignProgId = "InDesign.Application";
+
+        private InDesign.Application application;
+
+        public void InitializeProvider()
         {
-            var appType = Type.GetTypeFromProgID("InDesign.Application");
-            if (appType != null)
-            {
-                var application = (InDesign.Application)Activator.CreateInstance(appType);
-                return application;
-            }
-            return null;
+            var appType = Type.GetTypeFromProgID(InDesignProgId);
+            application = appType != null ? (InDesign.Application) Activator.CreateInstance(appType) : null;
         }
 
-        public InDesign.Document GetReportTemplate(InDesign.Application application, string reportTemplatePath)
+        public InDesign.Document GetReportTemplate(string reportTemplatePath)
         {
-            var document = (InDesign.Document)application.Open(reportTemplatePath);
-            return document;
+            return (InDesign.Document)application.Open(reportTemplatePath);
+        }
+
+        public void DestroyProvider()
+        {
+            application.Quit(QuitSaveOptions);
         }
     }
 }
