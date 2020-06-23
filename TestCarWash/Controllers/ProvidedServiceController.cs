@@ -6,6 +6,8 @@ using System.Net;
 using System.Web.Mvc;
 using TestCarWash.Content.Common;
 using TestCarWash.Models;
+using TestCarWash.Reports.ReportGenerators;
+using TestCarWash.Reports.ReportProviders;
 using TestCarWash.ViewModels;
 
 namespace TestCarWash.Controllers
@@ -142,6 +144,13 @@ namespace TestCarWash.Controllers
                 return RedirectToAction("Delete", new { Id = id, saveChangesError = true });
             }
             return RedirectToAction("Index", new { clientId = clientId });
+        }
+
+        public void PrintReport()
+        {
+            var reportProvider = new InDesignReportProvider();
+            var reportGenerator = new ReportGenerator(reportProvider);
+            reportGenerator.CreateReport();
         }
 
         protected override void Dispose(bool disposing)
