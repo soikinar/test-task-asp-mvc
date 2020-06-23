@@ -31,9 +31,10 @@
                 @Html.DisplayFor(modelItem => client.PhoneNumber)
             </td>
             <td>
-                @Html.ActionLink(PageStrings.ClientDetailsButtonText, "Index", new { clientId = client.Id }) |
+                @Html.ActionLink(PageStrings.ShowProvidedServiceListButtonText, "Index", new { clientId = client.Id }) |
                 @Html.ActionLink(PageStrings.EditClientButtonText, "Edit", "Client", new { id = client.Id }, null) |
                 @Html.ActionLink(PageStrings.DeleteClientButtonText, "Delete", "Client", new { id = client.Id }, null)
+                @*Html.ActionLink(PageStrings.PrintProvidedServiceButtonText, "TestInDesign")*@
             </td>
         </tr>
     }

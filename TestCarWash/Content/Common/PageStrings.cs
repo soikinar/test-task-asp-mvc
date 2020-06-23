@@ -24,20 +24,20 @@
 
         // Texts of Buttons
         public const string BackToListButtonText = "Вернуться к списку";
+        public const string EditButtonText = "Редактировать";
+        public const string SaveButtonText = "Сохранить";
+        public const string DeleteButtonText = "Удалить";
 
         public const string CreateClientButtonText = "Добавить клиента";
         public const string EditClientButtonText = "Редактировать клиента";
         public const string DeleteClientButtonText = "Удалить клиента";
-        public const string ClientDetailsButtonText = "Подробнее об оказанных услугах";
 
         public const string CreateServiceButtonText = "Добавить услугу";
 
         public const string ProvidedServiceListButtonText = "Прейскурант";
+        public const string ShowProvidedServiceListButtonText = "Подробнее об оказанных услугах";
         public const string CreateProvidedServiceButtonText = "Оказать услугу";
-
-        public const string EditButtonText = "Редактировать";
-        public const string SaveButtonText = "Сохранить";
-        public const string DeleteButtonText = "Удалить";
+        public const string PrintProvidedServiceButtonText = "INDESIGN TEST";
 
         // Data formats
         public const string MoneyDataFormat = "{0:#0.00} бел.руб.";
