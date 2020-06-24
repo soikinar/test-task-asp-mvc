@@ -40,7 +40,8 @@
         public const string PrintProvidedServiceButtonText = "INDESIGN TEST";
 
         // Data formats
-        public const string MoneyDataFormat = "{0:#0.00} бел.руб.";
+        public const string MoneyDisplayDataFormat = "{0:#0.00} бел.руб.";
+        public const string DateDisplayDataFormat = "{0:dd.MM.yyyy}";
 
         // Display Names of model properties
         public const string ClientPersonDisplayName = "Фамилия Имя";

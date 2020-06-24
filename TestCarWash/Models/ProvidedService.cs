@@ -34,7 +34,7 @@ namespace TestCarWash.Models
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Display(Name = PageStrings.ProvidedServiceTotalPriceDisplayName)]
-        [DisplayFormat(DataFormatString = PageStrings.MoneyDataFormat, ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = PageStrings.MoneyDisplayDataFormat, ApplyFormatInEditMode = true)]
         public decimal TotalPrice
         {
             get
@@ -69,7 +69,7 @@ namespace TestCarWash.Models
 
         public override string ToString()
         {
-            return $"{ServiceDate:dd-MM-yyyy} | {Service.Name} | {Service.Description} | {Service.PricePerMinute}";
+            return $"{Service.Name} | { string.Format(PageStrings.MoneyDisplayDataFormat, Service.PricePerMinute) }";
         }
     }
 }

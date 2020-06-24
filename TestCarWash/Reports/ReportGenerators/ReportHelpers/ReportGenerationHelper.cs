@@ -19,5 +19,10 @@ namespace TestCarWash.Reports.ReportGenerators.ReportHelpers
             var textFrame = (InDesign.TextFrame)page.TextFrames[textFrameNumber];
             textFrame.Contents = content;
         }
+
+        public static InDesign.Page GetPageByNumber(InDesign.Document document, int pageNumber)
+        {
+            return (InDesign.Page)document.Pages[pageNumber];
+        }
     }
 }

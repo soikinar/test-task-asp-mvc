@@ -29,7 +29,7 @@ namespace TestCarWash.Models
         /// Price per minute of service.
         /// </summary>
         [Display(Name = PageStrings.ServicePricePerMinuteDisplayName)]
-        [DisplayFormat(DataFormatString = PageStrings.MoneyDataFormat, ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = PageStrings.MoneyDisplayDataFormat, ApplyFormatInEditMode = true)]
         public decimal PricePerMinute { get; set; }
     }
 }

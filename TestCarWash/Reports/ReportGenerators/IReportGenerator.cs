@@ -3,7 +3,8 @@
     /// <summary>
     /// Interface of a report generator.
     /// </summary>
-    public interface IReportGenerator
+    /// <typeparam name="T">Type of report file.</typeparam>
+    public interface IReportGenerator<in T>
     {
         /// <summary>
         /// Creates report from template and returns its path.
@@ -12,9 +13,21 @@
         string CreateReportFromTemplate();
 
         /// <summary>
-        /// Fills content of report.
+        /// Fills all content of report.
         /// </summary>
-        /// <param name="reportTemplate"></param>
-        void FillReportContent(InDesign.Document reportTemplate);
+        /// <param name="reportTemplate">Type of report template file.</param>
+        void FillReportContent(T reportTemplate);
+
+        /// <summary>
+        /// Fills a header of report content.
+        /// </summary>
+        /// <param name="reportTemplate">Type of report template file.</param>
+        void FillHeader(T reportTemplate);
+
+        /// <summary>
+        /// Fills a footer of report content.
+        /// </summary>
+        /// <param name="reportTemplate">Type of report template file.</param>
+        void FillFooter(T reportTemplate);
     }
 }

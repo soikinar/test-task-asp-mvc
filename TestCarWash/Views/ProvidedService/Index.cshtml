@@ -33,72 +33,74 @@
             <td>
                 @Html.ActionLink(PageStrings.ShowProvidedServiceListButtonText, "Index", new { clientId = client.Id }) |
                 @Html.ActionLink(PageStrings.EditClientButtonText, "Edit", "Client", new { id = client.Id }, null) |
-                @Html.ActionLink(PageStrings.DeleteClientButtonText, "Delete", "Client", new { id = client.Id }, null) |
-                @Html.ActionLink(PageStrings.PrintProvidedServiceButtonText, "CreateAndPrintReportForClient", new { clientId = client.Id })
+                @Html.ActionLink(PageStrings.DeleteClientButtonText, "Delete", "Client", new { id = client.Id }, null)
             </td>
         </tr>
     }
 </table>
-@if (Model.ProvidedServices != null)
+
+@if (Model.ProvidedServicesByDate != null)
 {
     <h3>Оказанные клиенту услуги</h3>
     <p>
         @Html.ActionLink(PageStrings.CreateProvidedServiceButtonText, "Create", new { clientId = (int)ViewBag.ClientId })
     </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProvidedServices.First().ServiceDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProvidedServices.First().Service.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProvidedServices.First().Service.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProvidedServices.First().Service.PricePerMinute)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProvidedServices.First().NumberOfMinutes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProvidedServices.First().TotalPrice)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model.ProvidedServices)
-        {
-            var selectedRow = "";
-            if (item.ClientId == ViewBag.ClientId)
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiceDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Service.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Service.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Service.PricePerMinute)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfMinutes)
-                </td>
+    foreach (var groupedProvidedServices in Model.ProvidedServicesByDate)
+    {
+        <br />
+        var dateOfProvidedServices = groupedProvidedServices.Key;
+        <h4>@Html.DisplayNameFor(m => groupedProvidedServices.First().ServiceDate): @string.Format(PageStrings.DateDisplayDataFormat, dateOfProvidedServices)</h4>
+        @Html.ActionLink(PageStrings.PrintProvidedServiceButtonText, "CreateAndPrintReportForClient", new { clientId = (int)ViewBag.ClientId, serviceDate = dateOfProvidedServices })
+        <table class="table">
+            <tr>
                 <th>
-                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                    @Html.DisplayNameFor(model => groupedProvidedServices.First().Service.Name)
                 </th>
                 <th>
-                    @Html.ActionLink(PageStrings.EditButtonText, "Edit", new { id = item.Id }) |
-                    @Html.ActionLink(PageStrings.DeleteButtonText, "Delete", new { id = item.Id })
+                    @Html.DisplayNameFor(model => groupedProvidedServices.First().Service.Description)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => groupedProvidedServices.First().Service.PricePerMinute)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => groupedProvidedServices.First().NumberOfMinutes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => groupedProvidedServices.First().TotalPrice)
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
+
+            @foreach (var item in groupedProvidedServices)
+            {
+                var selectedRow = "";
+                if (item.ClientId == ViewBag.ClientId)
+                {
+                    selectedRow = "success";
+                }
+                <tr class="@selectedRow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.PricePerMinute)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfMinutes)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </th>
+                    <th>
+                        @Html.ActionLink(PageStrings.EditButtonText, "Edit", new { id = item.Id }) |
+                        @Html.ActionLink(PageStrings.DeleteButtonText, "Delete", new { id = item.Id })
+                    </th>
+                </tr>
+            }
+        </table>
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
@@ -28,7 +29,8 @@ namespace TestCarWash.Controllers
             if (clientId != null)
             {
                 ViewBag.ClientId = clientId.Value;
-                viewModel.ProvidedServices = viewModel.Clients.Single(c => c.Id == clientId).ProvidedServices;
+                var providedServices = viewModel.Clients.Single(c => c.Id == clientId).ProvidedServices;
+                viewModel.ProvidedServicesByDate = providedServices.GroupBy(ps => ps.ServiceDate.Date);
             }
             return View(viewModel);
         }
@@ -147,9 +149,9 @@ namespace TestCarWash.Controllers
             return RedirectToAction("Index", new { clientId = clientId });
         }
 
-        public ActionResult CreateAndPrintReportForClient(int? clientId)
+        public ActionResult CreateAndPrintReportForClient(int? clientId, DateTime? serviceDate)
         {
-            if (clientId == null)
+            if (clientId == null || serviceDate == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -167,9 +169,9 @@ namespace TestCarWash.Controllers
                 return new EmptyResult();
             }
 
-            var pathToCreatedReport = CreateProvidedServicesReport(client);
-            var fileName = new FileInfo(pathToCreatedReport);
-            return File(Server.MapPath(fileName.FullName), "application/pdf");
+            var pathToCreatedReport = CreateProvidedServicesReport(client, serviceDate.Value);
+            var reportFileName = Path.GetFileName(pathToCreatedReport);
+            return File(Server.MapPath(Path.Combine("~/Reports/ResultReports", reportFileName)), "application/pdf");
         }
 
         protected override void Dispose(bool disposing)
@@ -197,10 +199,10 @@ namespace TestCarWash.Controllers
             ViewBag.ServiceId = new SelectList(servicesQuery, "Id", "Name", selectedService);
         }
 
-        private string CreateProvidedServicesReport(Client client)
+        private string CreateProvidedServicesReport(Client client, DateTime serviceDate)
         {
             var reportProvider = new InDesignReportProvider();
-            var reportGenerator = new ProvidedServicesReportGenerator(reportProvider, client);
+            var reportGenerator = new ProvidedServicesReportGenerator(reportProvider, client, serviceDate);
 
             return reportGenerator.CreateReportFromTemplate();
         }
