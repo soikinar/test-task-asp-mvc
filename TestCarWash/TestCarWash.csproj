@@ -142,6 +142,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\ReportGenerators\IReportGenerator.cs" />
     <Compile Include="Reports\ReportGenerators\ProvidedServicesReportGenerator.cs" />
+    <Compile Include="Reports\ReportGenerators\ReportHelpers\ReportGenerationHelper.cs" />
     <Compile Include="Reports\ReportProviders\InDesignReportProvider.cs" />
     <Compile Include="Reports\ReportProviders\IReportProvider.cs" />
     <Compile Include="ViewModels\ProvidedServicesIndexData.cs" />

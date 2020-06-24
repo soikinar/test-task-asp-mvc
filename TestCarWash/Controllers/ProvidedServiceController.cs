@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -167,7 +168,8 @@ namespace TestCarWash.Controllers
             }
 
             var pathToCreatedReport = CreateProvidedServicesReport(client);
-            return File(Server.MapPath(pathToCreatedReport), "application/pdf");
+            var fileName = new FileInfo(pathToCreatedReport);
+            return File(Server.MapPath(fileName.FullName), "application/pdf");
         }
 
         protected override void Dispose(bool disposing)

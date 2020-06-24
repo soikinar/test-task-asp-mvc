@@ -66,5 +66,10 @@ namespace TestCarWash.Models
         /// Service entity.
         /// </summary>
         public virtual Service Service { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ServiceDate:dd-MM-yyyy} | {Service.Name} | {Service.Description} | {Service.PricePerMinute}";
+        }
     }
 }

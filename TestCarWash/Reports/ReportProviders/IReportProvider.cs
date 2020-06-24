@@ -3,6 +3,7 @@
     /// <summary>
     /// Interface of a report provider.
     /// </summary>
+    /// <typeparam name="T">Type of report file.</typeparam>
     public interface IReportProvider<out T>
     {
         /// <summary>
