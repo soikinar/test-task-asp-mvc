@@ -69,7 +69,7 @@ namespace TestCarWash.Models
 
         public override string ToString()
         {
-            return $"{Service.Name} | { string.Format(PageStrings.MoneyDisplayDataFormat, Service.PricePerMinute) }";
+            return $"{Service.Name} | {Service.Description}\n{string.Format(PageStrings.MoneyDisplayDataFormat, TotalPrice)} ({string.Format(PageStrings.MoneyDisplayDataFormat, Service.PricePerMinute)} * {NumberOfMinutes})";
         }
     }
 }

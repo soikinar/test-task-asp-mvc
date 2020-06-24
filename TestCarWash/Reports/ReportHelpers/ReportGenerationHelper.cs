@@ -17,7 +17,7 @@ namespace TestCarWash.Reports.ReportHelpers
         public static string ConvertCollectionToContentView<T>(IEnumerable<T> collection)
         {
             var rows = collection.Select(item => item.ToString()).ToList();
-            return string.Join("\n", rows);
+            return string.Join("\r\n", rows);
         }
 
         /// <summary>

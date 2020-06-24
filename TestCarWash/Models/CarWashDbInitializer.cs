@@ -38,6 +38,12 @@ namespace TestCarWash.Models
 
         private void FillTestData(CarWashContext context)
         {
+            FillClientData(context);
+            FillProvidedServiceData(context);
+        }
+
+        private void FillClientData(CarWashContext context)
+        {
             var clients = new List<Client>
             {
                 new Client { Person = "Иванов Иван", PhoneNumber = "+375 29 123-66-99" },
@@ -45,14 +51,23 @@ namespace TestCarWash.Models
             };
             clients.ForEach(client => context.Clients.Add(client));
             context.SaveChanges();
+        }
 
+        private void FillProvidedServiceData(CarWashContext context)
+        {
             var yesterday = DateTime.Today.AddDays(-1);
+            var clients = context.Clients.ToList();
             var services = context.Services.ToList();
             var providedServices = new List<ProvidedService>
             {
-                new ProvidedService { ServiceDate = yesterday, Client = clients[0], Service = services[0], NumberOfMinutes = 10 },
-                new ProvidedService { ServiceDate = yesterday, Client = clients[0], Service = services[4], NumberOfMinutes = 30 },
-                new ProvidedService { ServiceDate = yesterday, Client = clients[1], Service = services[5], NumberOfMinutes = 40 },
+                new ProvidedService { ServiceDate = yesterday.AddDays(-8), Client = clients[0], Service = services[3], NumberOfMinutes = 30 },
+                new ProvidedService { ServiceDate = yesterday.AddDays(-8), Client = clients[0], Service = services[7], NumberOfMinutes = 1 },
+                new ProvidedService { ServiceDate = yesterday, Client = clients[0], Service = services[0], NumberOfMinutes = 30 },
+                new ProvidedService { ServiceDate = yesterday, Client = clients[0], Service = services[6], NumberOfMinutes = 1 },
+                new ProvidedService { ServiceDate = yesterday.AddDays(-10), Client = clients[1], Service = services[5], NumberOfMinutes = 40 },
+                new ProvidedService { ServiceDate = yesterday.AddDays(-10), Client = clients[1], Service = services[8], NumberOfMinutes = 4 },
+                new ProvidedService { ServiceDate = yesterday, Client = clients[1], Service = services[6], NumberOfMinutes = 1 },
+                new ProvidedService { ServiceDate = yesterday, Client = clients[1], Service = services[8], NumberOfMinutes = 4 },
                 new ProvidedService { ServiceDate = yesterday, Client = clients[1], Service = services[7], NumberOfMinutes = 1 },
             };
             providedServices.ForEach(providedService => context.ProvidedServices.Add(providedService));
