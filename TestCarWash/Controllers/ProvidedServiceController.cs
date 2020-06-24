@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -169,9 +168,9 @@ namespace TestCarWash.Controllers
                 return new EmptyResult();
             }
 
-            var pathToCreatedReport = CreateProvidedServicesReport(client, serviceDate.Value);
-            var reportFileName = Path.GetFileName(pathToCreatedReport);
-            return File(Server.MapPath(Path.Combine("~/Reports/ResultReports", reportFileName)), "application/pdf");
+            var createdReportPath = CreateProvidedServicesReport(client, serviceDate.Value);
+            var createdReportVirtualPath = ConvertPhysicalPathToVirtual(createdReportPath);
+            return File(Server.MapPath(createdReportVirtualPath), "application/pdf");
         }
 
         protected override void Dispose(bool disposing)
@@ -203,8 +202,12 @@ namespace TestCarWash.Controllers
         {
             var reportProvider = new InDesignReportProvider();
             var reportGenerator = new ProvidedServicesReportGenerator(reportProvider, client, serviceDate);
-
             return reportGenerator.CreateReportFromTemplate();
+        }
+
+        private string ConvertPhysicalPathToVirtual(string physicalPath)
+        {
+            return physicalPath.Replace(Request.ServerVariables["APPL_PHYSICAL_PATH"], "~/").Replace(@"\", "/");
         }
     }
 }

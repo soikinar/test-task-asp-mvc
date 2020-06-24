@@ -37,7 +37,7 @@
         public const string ProvidedServiceListButtonText = "Прейскурант";
         public const string ShowProvidedServiceListButtonText = "Подробнее об оказанных услугах";
         public const string CreateProvidedServiceButtonText = "Оказать услугу";
-        public const string PrintProvidedServiceButtonText = "INDESIGN TEST";
+        public const string PrintProvidedServiceButtonText = "Создать отчёт";
 
         // Data formats
         public const string MoneyDisplayDataFormat = "{0:#0.00} бел.руб.";

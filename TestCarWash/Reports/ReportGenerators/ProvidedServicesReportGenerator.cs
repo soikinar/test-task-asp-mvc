@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TestCarWash.Content.Common;
 using TestCarWash.Models;
-using TestCarWash.Reports.ReportGenerators.ReportHelpers;
+using TestCarWash.Reports.ReportHelpers;
 using TestCarWash.Reports.ReportProviders;
 
 namespace TestCarWash.Reports.ReportGenerators
@@ -14,6 +14,9 @@ namespace TestCarWash.Reports.ReportGenerators
     public class ProvidedServicesReportGenerator : IReportGenerator<InDesign.Document>
     {
         private readonly IReportProvider<InDesign.Document> provider;
+        private readonly string resultReportFileName = $"ResultReport_{DateTime.Now:ddMMyyyy_HHmmss}.pdf";
+
+        // info for report contents
         private readonly Client currentClient;
         private readonly DateTime currentServiceDate;
         private readonly IEnumerable<ProvidedService> currentProvidedServices;
@@ -31,16 +34,12 @@ namespace TestCarWash.Reports.ReportGenerators
 
         public string CreateReportFromTemplate()
         {
-            var templatePath = @"C:\RenData\Repos\test-task-asp-mvc\TestCarWash\Reports\ReportTemplates\ReportTemplate.indd";
-
+            var templatePath = ReportConfigurationManager.GetAbsolutePathToReportTemplateFile();
             provider.InitializeProvider();
             var reportTemplate = provider.GetReportTemplate(templatePath);
-            
             FillReportContent(reportTemplate);
-            
             var savedReportPath = SaveReport(reportTemplate);
             provider.DestroyProvider();
-
             return savedReportPath;
         }
 
@@ -76,9 +75,9 @@ namespace TestCarWash.Reports.ReportGenerators
 
         private string SaveReport(InDesign.Document reportTemplate)
         {
-            var resultReportPath = $@"C:\RenData\Repos\test-task-asp-mvc\TestCarWash\Reports\ResultReports\ResultReport_{DateTime.Now:ddMMyyyy_HHmmss}.pdf";
             const int pdfTypeCode = 1952403524; // it's number code from InDesign Server Scripting Guide (VBScript)
-            
+
+            var resultReportPath = ReportConfigurationManager.GetAbsolutePathToResultReportFile(resultReportFileName);
             reportTemplate.Export(pdfTypeCode, resultReportPath);
             return resultReportPath;
         }

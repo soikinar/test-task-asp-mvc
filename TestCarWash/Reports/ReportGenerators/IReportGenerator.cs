@@ -9,7 +9,7 @@
         /// <summary>
         /// Creates report from template and returns its path.
         /// </summary>
-        /// <returns>Path to the created report.</returns>
+        /// <returns>Full path to the created report file.</returns>
         string CreateReportFromTemplate();
 
         /// <summary>
